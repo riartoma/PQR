@@ -48,18 +48,53 @@ include("conexion.php");
 			}
 			?>
 
+<form class="form-inline" method="get" >
+	
+      <label>Fecha Desde:</label>
+      <input type="date" class="form-control" placeholder="Start"  name="date1"/>
+      <label>Hasta</label>
+      <input type="date" class="form-control" placeholder="End"  name="date2"/>
+	  <select name="filter" class="form-control" >
+						<option value="0">Tipo de PQR</option>
+						<?php $filter = (isset($_GET['tipo']) ? $_GET['date1'] : NULL);  ?>
+						<option value="1" <?php if($filter != NULL){ echo 'selected'; } ?>>Peticion</option>
+						<option value="2" <?php if($filter != NULL){ echo 'selected'; } ?>>Queja</option>
+                        <option value="3" <?php if($filter != NULL){ echo 'selected'; } ?>>Reclamo</option>
+					</select>
+					<input class="btn btn-primary" type="submit" value="Enviar">
+
+      <!-- <button class="btn btn-primary" name="filter"><span class="glyphicon glyphicon-search"></span></button> <a href="index2.php" type="button" class="btn btn-success"><span class = "glyphicon glyphicon-refresh"><span></a> -->
+    </form>
+	<?php
+	echo "aca estara la leyenda buscada";
+	?>
+
+			<!-- //aca esta el filtro anterior que se uso 
 			<form class="form-inline" method="get">
+			<div class="form-group">
+					<label class="col-sm-3 control-label">Fecha inicial</label>
+					<div class="col-sm-4">
+						<input type="text" name="fecha_inicial" class="input-group date form-control" date="" data-date-format="dd-mm-yyyy" placeholder="00-00-0000" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Fecha Final</label>
+					<div class="col-sm-4">
+						<input type="text" name="fecha_final" class="input-group date form-control" date="" data-date-format="dd-mm-yyyy" placeholder="00-00-0000" required>
+					</div>
+				</div>
+				<a class="btn btn-primary" href="index2.php" role="button">Filtrar</a>
 				<div class="form-group">
 					<select name="filter" class="form-control" onchange="form.submit()">
 						<option value="0">Filtros de Tipo de PQR</option>
-						<?php $filter = (isset($_GET['filter']) ? strtolower($_GET['filter']) : NULL);  ?>
+						<?php /* $filter = (isset($_GET['filter']) ? strtolower($_GET['filter']) : NULL);  ?>
 						<option value="1" <?php if($filter == 'Tetap'){ echo 'selected'; } ?>>Peticion</option>
 						<option value="2" <?php if($filter == 'Kontrak'){ echo 'selected'; } ?>>Queja</option>
-                        <option value="3" <?php if($filter == 'Outsourcing'){ echo 'selected'; } ?>>Reclamo</option>
+                        <option value="3" <?php if($filter == 'Outsourcing'){ echo 'selected'; }  */?>>Reclamo</option>
 					</select>
 				
-			<a class="btn btn-primary" href="index2.php?date1=&date2=&filter=0" role="button">Filtrar entre fechas</a>
-			</div>
+			<a class="btn btn-primary" href="index2.php" role="button">Filtrar entre fechas</a>
+			</div> -->
 			</form>
 			
 			<br />
@@ -94,11 +129,26 @@ include("conexion.php");
 					// Formas de uso
 					# Limitar a 3 caracteres y si es más larga cortarla, agregándole puntos suspensivos
 					//echo limitar_cadena("Hola mundo soy una cadena muy larga", 100, "...");
+					
 
+					if (isset($_GET["date1"]) && isset($_GET["date2"]) ){
+				//if($filter==1 ){
+					$sql = mysqli_query($con, "SELECT * FROM empleados ORDER BY Fecha_Creacion DESC") or die(mysqli_error());//='$filter' ORDER BY codigo ASC");
+//echo "SELECT * FROM empleados WHERE Fecha_Creacion BETWEEN '".$_GET["date1"] ."' AND  '".$_GET["date2"]."'";
+					//$sql = mysqli_query($con, "SELECT * FROM empleados WHERE estado='$filter' ORDER BY codigo ASC");
+				}
+				if (($_GET["date1"]!='') && ($_GET["date2"]!='') ){
+					//if($filter==1 ){
+	//echo "SELECT * FROM empleados WHERE Fecha_Creacion BETWEEN '".$_GET["date1"] ."' AND  '".$_GET["date2"]."'";
+						//$sql = mysqli_query($con, "SELECT * FROM empleados WHERE estado='$filter' ORDER BY codigo ASC");
+						if($_GET['filter']!=0){
+							$sql = mysqli_query($con, "SELECT * FROM empleados WHERE Fecha_Creacion >= '".$_GET["date1"] ." 00:00:00' and  Fecha_Creacion <= '".$_GET["date2"] ." 23:59:59' and estado = ".(int)$_GET['filter']." ORDER BY Fecha_Creacion asc") or die(mysqli_error());//='$filter' ORDER BY codigo ASC");
+						}
+						else{
+							$sql = mysqli_query($con, "SELECT * FROM empleados WHERE Fecha_Creacion >= '".$_GET["date1"] ." 00:00:00' and  Fecha_Creacion <= '".$_GET["date2"] ." 23:59:59' ORDER BY Fecha_Creacion asc") or die(mysqli_error());//='$filter' ORDER BY codigo ASC");
 
-				if($filter){
-					$sql = mysqli_query($con, "SELECT * FROM empleados WHERE estado='$filter' ORDER BY codigo ASC");
-				}else{
+						}
+					}else{
 					$sql = mysqli_query($con, "SELECT * FROM empleados ORDER BY codigo ASC");
 				}
 				if(mysqli_num_rows($sql) == 0){
@@ -107,6 +157,7 @@ include("conexion.php");
 					$no = 1;
 					//aca mostramos los campos de la tabla a ver en el formulario 
 					while($row = mysqli_fetch_assoc($sql)){
+						
 						//en este espacio despues de No va si se desea agregar el campo de codigo pero no es necesario /*<td>'.$row['codigo'].'</td>*/
 						/* echo '
 						<tr>
@@ -118,7 +169,6 @@ include("conexion.php");
 							<td>'.$row['telefono'].'</td>
                             <td>'.$row['puesto'].'</td>
 							<td>'; */
-							//echo '<td>'.$no.'</td>
 							echo '<td>'.$row['codigo'].'</td>
 							<td><a href="profile.php?nik='.$row['codigo'].'"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> '.$row['nombres'].'</a></td>
 							<td>'.limitar_cadena($row['direccion'], 100, "...")
@@ -152,7 +202,20 @@ include("conexion.php");
 			</div>
 		</div>
 	</div><center>
-	<p>&copy; Ricardo Arturo Torres Manrique <?php echo date("Y");?></p
+	<p>&copy; Ricardo Arturo Torres Manrique <?php echo date("Y");
+	/* $var1=$_GET["date1"];
+	$var2=$_GET["date2"];
+	if (isset($var1,$var2)) 
+	{
+    echo "Variables definidas!!!";
+	}
+	else
+		{
+		echo "Variables NO definidas!!!";
+		} */
+		
+	
+	?></p
 		</center>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>

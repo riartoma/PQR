@@ -37,52 +37,54 @@ Email	 	 : info@obedalvarado.pw
 	</nav>
 	<div class="container">
 		<div class="content">
-			<h2>Datos del empleados &raquo; Agregar datos</h2>
+			<h2>Datos del PQR &raquo; Agregar datos</h2>
 			<hr />
 
 			<?php
 			if(isset($_POST['add'])){
-				$codigo		     = mysqli_real_escape_string($con,(strip_tags($_POST["codigo"],ENT_QUOTES)));//Escanpando caracteres 
+				//$codigo		     = mysqli_real_escape_string($con,(strip_tags($_POST["codigo"],ENT_QUOTES)));//Escanpando caracteres 
 				$nombres		     = mysqli_real_escape_string($con,(strip_tags($_POST["nombres"],ENT_QUOTES)));//Escanpando caracteres 
-				$lugar_nacimiento	 = mysqli_real_escape_string($con,(strip_tags($_POST["lugar_nacimiento"],ENT_QUOTES)));//Escanpando caracteres 
-				$fecha_nacimiento	 = mysqli_real_escape_string($con,(strip_tags($_POST["fecha_nacimiento"],ENT_QUOTES)));//Escanpando caracteres 
+				//$lugar_nacimiento	 = mysqli_real_escape_string($con,(strip_tags($_POST["lugar_nacimiento"],ENT_QUOTES)));//Escanpando caracteres 
+				//$fecha_nacimiento	 = mysqli_real_escape_string($con,(strip_tags($_POST["fecha_nacimiento"],ENT_QUOTES)));//Escanpando caracteres 
 				$direccion	     = mysqli_real_escape_string($con,(strip_tags($_POST["direccion"],ENT_QUOTES)));//Escanpando caracteres 
-				$telefono		 = mysqli_real_escape_string($con,(strip_tags($_POST["telefono"],ENT_QUOTES)));//Escanpando caracteres 
-				$puesto		 = mysqli_real_escape_string($con,(strip_tags($_POST["puesto"],ENT_QUOTES)));//Escanpando caracteres 
+				//$telefono		 = mysqli_real_escape_string($con,(strip_tags($_POST["telefono"],ENT_QUOTES)));//Escanpando caracteres 
+				//$puesto		 = mysqli_real_escape_string($con,(strip_tags($_POST["puesto"],ENT_QUOTES)));//Escanpando caracteres 
 				$estado			 = mysqli_real_escape_string($con,(strip_tags($_POST["estado"],ENT_QUOTES)));//Escanpando caracteres 
 				
 			
 
-				$cek = mysqli_query($con, "SELECT * FROM empleados WHERE codigo='$codigo'");
-				if(mysqli_num_rows($cek) == 0){
-						$insert = mysqli_query($con, "INSERT INTO empleados(codigo, nombres, lugar_nacimiento, fecha_nacimiento, direccion, telefono, puesto, estado)
-															VALUES('$codigo','$nombres', '$lugar_nacimiento', '$fecha_nacimiento', '$direccion', '$telefono', '$puesto', '$estado')") or die(mysqli_error());
+				$cek = mysqli_query($con, "SELECT * FROM empleados "); //WHERE codigo='$codigo'
+				//se comenta este if debido a que el codigo de cada una de las peticiones es unico y autoincremental
+				//if(mysqli_num_rows($cek) == 0){
+				$ins="INSERT INTO empleados( nombres, direccion, estado) VALUES('".$nombres."',  '".$direccion."', '".$estado."')";
+					$insert = mysqli_query($con, "INSERT INTO empleados( nombres, direccion, estado)
+					    VALUES('$nombres',  '$direccion', '$estado')") or die($ins);
+
+						/* $insert = mysqli_query($con, "INSERT INTO empleados( nombres, lugar_nacimiento, fecha_nacimiento, direccion, telefono, puesto, estado)
+															VALUES('$nombres', '$lugar_nacimiento', '$fecha_nacimiento', '$direccion', '$telefono', '$puesto', '$estado')") or die(mysqli_error());
+						 */
 						if($insert){
 							echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Los datos han sido guardados con éxito.</div>';
+							enviomail();
 						}else{
 							echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. No se pudo guardar los datos !</div>';
 						}
 					 
-				}else{
-					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. código exite!</div>';
-				}
+				//}else{
+					//echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. código exite!</div>';
+				//}
 			}
 			?>
 
 			<form class="form-horizontal" action="" method="post">
-				<div class="form-group">
-					<label class="col-sm-3 control-label">Código</label>
-					<div class="col-sm-2">
-						<input type="text" name="codigo" class="form-control" placeholder="Código" required>
-					</div>
-				</div>
+				
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Nombres</label>
 					<div class="col-sm-4">
 						<input type="text" name="nombres" class="form-control" placeholder="Nombres" required>
 					</div>
 				</div>
-				<div class="form-group">
+				<!-- <div class="form-group">
 					<label class="col-sm-3 control-label">Lugar de nacimiento</label>
 					<div class="col-sm-4">
 						<input type="text" name="lugar_nacimiento" class="form-control" placeholder="Lugar de nacimiento" required>
@@ -93,14 +95,14 @@ Email	 	 : info@obedalvarado.pw
 					<div class="col-sm-4">
 						<input type="text" name="fecha_nacimiento" class="input-group date form-control" date="" data-date-format="dd-mm-yyyy" placeholder="00-00-0000" required>
 					</div>
-				</div>
+				</div> -->
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Dirección</label>
+					<label class="col-sm-3 control-label">Peticion, Queja o Reclamo</label>
 					<div class="col-sm-3">
 						<textarea name="direccion" class="form-control" placeholder="Dirección"></textarea>
 					</div>
 				</div>
-				<div class="form-group">
+				<!-- <div class="form-group">
 					<label class="col-sm-3 control-label">Teléfono</label>
 					<div class="col-sm-3">
 						<input type="text" name="telefono" class="form-control" placeholder="Teléfono" required>
@@ -111,16 +113,16 @@ Email	 	 : info@obedalvarado.pw
 					<div class="col-sm-3">
 						<input type="text" name="puesto" class="form-control" placeholder="Puesto" required>
 					</div>
-				</div>
+				</div> -->
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Estado</label>
+					<label class="col-sm-3 control-label">Tipo</label>
 					<div class="col-sm-3">
 						<select name="estado" class="form-control">
 							<option value=""> ----- </option>
-                           <option value="1">Fijo</option>
-							<option value="2">Contratado</option>
+                           <option value="1">Queja</option>
+							<option value="2">Reclamo</option>
 							
-							 <option value="3">Outsourcing</option>
+							 <option value="3">Peticion</option>
 						</select>
 					</div>
 				</div>
@@ -136,6 +138,47 @@ Email	 	 : info@obedalvarado.pw
 		</div>
 	</div>
 
+	<?php 
+	function enviomail(){
+		$destinatario = "ricardoarturotorres@gmail.com"; 
+		$asunto = "Este mensaje es de prueba"; 
+		$cuerpo = '
+			<html> 
+			<head> 
+			<title>Prueba de correo</title> 
+			</head> 
+			<body> 
+			<h1>Hola amigos!</h1> 
+			<p> 
+			<b>Bienvenidos a mi correo electrónico de prueba</b>. Estoy encantado de tener tantos lectores. Este cuerpo del mensaje es del artículo de envío de mails por PHP. Habría que cambiarlo para poner tu propio cuerpo. Por cierto, cambia también las cabeceras del mensaje. 
+			</p> 
+			</body> 
+			</html> 
+			'; 
+
+		//para el envío en formato HTML 
+		$headers = "MIME-Version: 1.0\r\n"; 
+		$headers .= "Content-type: text/html; charset=iso-8859-1\r\n"; 
+
+		//dirección del remitente 
+		$headers .= "From: Miguel Angel Alvarez <ricardoarturotorres@gmail.com>\r\n"; 
+
+		//dirección de respuesta, si queremos que sea distinta que la del remitente 
+		$headers .= "Reply-To: ricardoarturotorres@gmail.com\r\n"; 
+
+		//ruta del mensaje desde origen a destino 
+		$headers .= "Return-path: ratmanri@gmail.com\r\n"; 
+
+		//direcciones que recibián copia 
+		$headers .= "Cc: ratmanri@gmail.com\r\n"; 
+
+		//direcciones que recibirán copia oculta 
+		$headers .= "Bcc: ricardodocentepolitecnica@gmail.com,ratmanri@gmail.com, ricardoarturotorres@gmail.com\r\n"; 
+
+		mail($destinatario,$asunto,$cuerpo,$headers);
+	}
+	?>
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/bootstrap-datepicker.js"></script>
@@ -144,5 +187,6 @@ Email	 	 : info@obedalvarado.pw
 		format: 'dd-mm-yyyy',
 	})
 	</script>
+	
 </body>
 </html>

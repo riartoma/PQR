@@ -14,7 +14,7 @@ Email	 	 : info@obedalvarado.pw
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Datos de empleados</title>
+	<title>Datos de PQR</title>
 
 	<!-- Bootstrap -->
 	<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -36,7 +36,7 @@ Email	 	 : info@obedalvarado.pw
 	</nav>
 	<div class="container">
 		<div class="content">
-			<h2>Datos del empleados &raquo; Perfil</h2>
+			<h2>Datos del PQR &raquo; </h2>
 			<hr />
 			
 			<?php
@@ -61,40 +61,43 @@ Email	 	 : info@obedalvarado.pw
 			?>
 			
 			<table class="table table-striped table-condensed">
+				
 				<tr>
-					<th width="20%">Código</th>
-					<td><?php echo $row['codigo']; ?></td>
-				</tr>
-				<tr>
-					<th>Nombre del empleado</th>
+					<th>Nombre del PQR</th>
 					<td><?php echo $row['nombres']; ?></td>
 				</tr>
 				<tr>
+					<th>Descripcion</th>
+					<td><?php echo $row['direccion']; ?></td>
+				</tr>
+				<!--
+				<tr>
 					<th>Lugar y Fecha de Nacimiento</th>
-					<td><?php echo $row['lugar_nacimiento'].', '.$row['fecha_nacimiento']; ?></td>
+					<td><?php //echo $row['lugar_nacimiento'].', '.$row['fecha_nacimiento']; ?></td>
 				</tr>
 				<tr>
 					<th>Dirección</th>
-					<td><?php echo $row['direccion']; ?></td>
+					<td><?php //echo $row['direccion']; ?></td>
 				</tr>
 				<tr>
 					<th>Teléfono</th>
-					<td><?php echo $row['telefono']; ?></td>
+					<td><?php //echo $row['telefono']; ?></td>
 				</tr>
 				<tr>
 					<th>Puesto</th>
-					<td><?php echo $row['puesto']; ?></td>
+					<td><?php //echo $row['puesto']; ?></td>
 				</tr>
+				-->
 				<tr>
 					<th>Estado</th>
 					<td>
 						<?php 
 							if ($row['estado']==1) {
-								echo "Fijo";
+								echo "Queja";
 							} else if ($row['estado']==2){
-								echo "Contratado";
+								echo "Reclamo";
 							} else if ($row['estado']==3){
-								echo "Outsourcing";
+								echo "Peticion";
 							}
 						?>
 					</td>
@@ -103,8 +106,8 @@ Email	 	 : info@obedalvarado.pw
 			</table>
 			
 			<a href="index.php" class="btn btn-sm btn-info"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Regresar</a>
-			<a href="edit.php?nik=<?php echo $row['nik']; ?>" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar datos</a>
-			<a href="profile.php?aksi=delete&nik=<?php echo $row['nik']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Esta seguro de borrar los datos <?php echo $row['nombres']; ?>')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</a>
+			<a href="edit.php?nik=<?php echo $_GET["nik"]; ?>" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar datos</a>
+			<a href="profile.php?aksi=delete&nik=<?php echo $_GET["nik"]; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Esta seguro de borrar los datos <?php echo $row['nombres']; ?>')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</a>
 		</div>
 	</div>
 

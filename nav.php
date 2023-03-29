@@ -10,7 +10,7 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav ">
-					<li class="active"><a href="index.php">Lista de empleados</a></li>
+					<li class="active"><a href="index.php">Listado de PQR</a></li>
 					<li><a href="add.php">Agregar datos</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
