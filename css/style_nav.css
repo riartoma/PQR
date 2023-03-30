@@ -66,4 +66,9 @@
     color: #ecf0f1;
     background-color: #1abc9c;
   }
+
+  .linea
+{
+    display: inline-block;
+}
 }

@@ -61,7 +61,9 @@ include("conexion.php");
 			<a class="btn btn-primary" href="index2.php?date1=&date2=&filter=0" role="button">Filtrar entre fechas</a>
 			</div>
 			</form>
-			
+			<a href="graficos.php" class="btn btn-primary" role="button">graficos</a>
+			<a href="graficos2.php" class="btn btn-primary" role="button">graficos2</a>
+
 			<br />
 			<div class="table-responsive">
 			<table class="table table-striped table-hover">
@@ -120,7 +122,7 @@ include("conexion.php");
 							<td>'; */
 							//echo '<td>'.$no.'</td>
 							echo '<td>'.$row['codigo'].'</td>
-							<td><a href="profile.php?nik='.$row['codigo'].'"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> '.$row['nombres'].'</a></td>
+							<td><a href="profile.php?nik='.$row['codigo'].'" tittle="Ver datos"><span class="glyphicon glyphicon-user" aria-hidden="true" ></span> '.$row['nombres'].'</a></td>
 							<td>'.limitar_cadena($row['direccion'], 100, "...")
 							.'</td>
 							<td>'
@@ -138,9 +140,9 @@ include("conexion.php");
 						echo '
 							</td>
 							<td>
-
-								<a href="edit.php?nik='.$row['codigo'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-								<a href="index.php?aksi=delete&nik='.$row['codigo'].'" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos '.$row['nombres'].'?\')" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+								<a href="edit.php?nik='.$row['codigo'].'" title="Editar datos" class="btn btn-primary btn-sm " style="display: inline-block;"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+								<a href="index.php?aksi=delete&nik='.$row['codigo'].'" title="Eliminar Datos" onclick="return confirm(\'Esta seguro de borrar los datos '.$row['nombres'].'?\')" class="btn btn-danger btn-sm" style="display: inline-block;"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+								<a href="profile.php?nik='.$row['codigo'].'" title="Ver Datos" class="btn btn-sucess btn-sm " style="display: inline-block;"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
 							</td>
 						</tr>
 						';
@@ -156,5 +158,6 @@ include("conexion.php");
 		</center>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+	
 </body>
 </html>
