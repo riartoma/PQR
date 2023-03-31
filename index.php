@@ -63,6 +63,8 @@ include("conexion.php");
 			</form>
 			<a href="graficos.php" class="btn btn-primary" role="button">graficos</a>
 			<a href="graficos2.php" class="btn btn-primary" role="button">graficos2</a>
+			<a href="demonioprogramado.php" class="btn btn-primary" role="button">demonio</a>
+
 
 			<br />
 			<div class="table-responsive">

@@ -1,4 +1,36 @@
 <?php
+function enviarCorreo($destinatario, $asunto, $cuerpo) {
+    // Incluir la librería de PHPMailerLite
+    require_once('librerias/PHPMailer-6.8.0/src/PHPMailerLite.php');
+
+    // Crear una nueva instancia de PHPMailerLite
+    $mailer = new PHPMailerLite();
+
+    // Configurar el servidor SMTP
+    $mailer->isSMTP();
+    $mailer->Host = 'smtp.gmail.com';
+    $mailer->Port = 587;
+    $mailer->SMTPAuth = true;
+    $mailer->Username = 'tu_correo@gmail.com';
+    $mailer->Password = 'tu_contraseña';
+
+    // Configurar el remitente y destinatario del correo
+    $mailer->setFrom('tu_correo@gmail.com', 'Tu Nombre');
+    $mailer->addAddress($destinatario);
+
+    // Configurar el asunto y cuerpo del correo
+    $mailer->Subject = $asunto;
+    $mailer->Body = $cuerpo;
+
+    // Enviar el correo
+    if (!$mailer->send()) {
+        return 'Error al enviar el correo: ' . $mailer->ErrorInfo;
+    } else {
+        return 'Correo enviado correctamente';
+    }
+}
+
+
 include("conexion.php");
 
 // Consulta SQL para extraer los datos de la tabla
