@@ -1,5 +1,57 @@
 <?php
-include("conexion.php");
+	include("conexion.php");
+	require 'librerias/PHPMailer/src/Exception.php';
+	require 'librerias/PHPMailer/src/PHPMailer.php';
+	require 'librerias/PHPMailer/src/SMTP.php';
+
+	function enviarCorreo1() {
+		$mail = new PHPMailer\PHPMailer\PHPMailer();
+		
+		try {
+			// Configuración del servidor SMTP
+			$mail->isSMTP();
+			$mail->SMTPDebug = 0; // 0 para desactivar la depuración SMTP
+			$mail->SMTPAuth = true;
+			$mail->SMTPSecure = 'ssl'; // TLS o SSL según corresponda
+			$mail->Host = 'smtp.gmail.com'; // Servidor SMTP de Gmail
+			$mail->Port = 465; // Puerto SMTP de Gmail
+			$mail->Username = 'ricardoarturotorres@gmail'; //Cambiar por tu cuenta de Gmail
+			$mail->Password = '75104962Qw.,-'; //Cambiar por tu contraseña de Gmail
+			
+			// Configuración del correo electrónico
+			$asunto = "Este mensaje es de prueba"; 
+
+			//Configuración del correo electrónico
+			$mail->setFrom('ricardoarturotorres@gmail.com', 'Ricardo torres'); //Cambiar por tu cuenta de Gmail y tu nombre
+			$mail->addAddress('ratmanri@ejemplo.com', 'otro correo mio'); //Cambiar por la dirección de correo electrónico del destinatario y su nombre
+			$mail->Subject = $asunto;
+			$cuerpo = '
+				<html> 
+				<head> 
+				<title>Prueba de correo</title> 
+				</head> 
+				<body> 
+				<h1>Hola amigos!</h1> 
+				<p> 
+				<b>Bienvenidos a mi correo electrónico de prueba</b>. Estoy encantado de tener tantos lectores. Este cuerpo del mensaje es del artículo de envío de mails por PHP. Habría que cambiarlo para poner tu propio cuerpo. Por cierto, cambia también las cabeceras del mensaje. 
+				</p> 
+				</body> 
+				</html> 
+				'; 
+			$mail->Body = $cuerpo;
+			
+			// Envío del correo electrónico
+			$mail->send();
+			var_dump($mail);
+			echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! se realizo el envio de los correos.</div>';
+			return true;
+		} catch (Exception $e) {
+			echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>no se realizo el envio de los correos.</div>';
+
+			return false;
+		}
+	}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -65,7 +117,7 @@ Email	 	 : info@obedalvarado.pw
 						 */
 						if($insert){
 							echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Los datos han sido guardados con éxito.</div>';
-							enviomail();
+							enviarCorreo1();
 						}else{
 							echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. No se pudo guardar los datos !</div>';
 						}
@@ -138,47 +190,6 @@ Email	 	 : info@obedalvarado.pw
 		</div>
 	</div>
 
-	<?php 
-	function enviomail(){
-		$destinatario = "ricardoarturotorres@gmail.com"; 
-		$asunto = "Este mensaje es de prueba"; 
-		$cuerpo = '
-			<html> 
-			<head> 
-			<title>Prueba de correo</title> 
-			</head> 
-			<body> 
-			<h1>Hola amigos!</h1> 
-			<p> 
-			<b>Bienvenidos a mi correo electrónico de prueba</b>. Estoy encantado de tener tantos lectores. Este cuerpo del mensaje es del artículo de envío de mails por PHP. Habría que cambiarlo para poner tu propio cuerpo. Por cierto, cambia también las cabeceras del mensaje. 
-			</p> 
-			</body> 
-			</html> 
-			'; 
-
-		//para el envío en formato HTML 
-		$headers = "MIME-Version: 1.0\r\n"; 
-		$headers .= "Content-type: text/html; charset=iso-8859-1\r\n"; 
-
-		//dirección del remitente 
-		$headers .= "From: Miguel Angel Alvarez <ricardoarturotorres@gmail.com>\r\n"; 
-
-		//dirección de respuesta, si queremos que sea distinta que la del remitente 
-		$headers .= "Reply-To: ricardoarturotorres@gmail.com\r\n"; 
-
-		//ruta del mensaje desde origen a destino 
-		$headers .= "Return-path: ratmanri@gmail.com\r\n"; 
-
-		//direcciones que recibián copia 
-		$headers .= "Cc: ratmanri@gmail.com\r\n"; 
-
-		//direcciones que recibirán copia oculta 
-		$headers .= "Bcc: ricardodocentepolitecnica@gmail.com,ratmanri@gmail.com, ricardoarturotorres@gmail.com\r\n"; 
-
-		mail($destinatario,$asunto,$cuerpo,$headers);
-	}
-	?>
-
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/bootstrap-datepicker.js"></script>
@@ -187,6 +198,53 @@ Email	 	 : info@obedalvarado.pw
 		format: 'dd-mm-yyyy',
 	})
 	</script>
+
+	<?php 
+		
+		
+	function enviodemailconphpmailer(){
+		$mail = new PHPMailer(true);
+		
+		try {
+			//Configuración del servidor SMTP de Gmail
+			$mail->SMTPDebug = 0;
+			$mail->isSMTP();
+			$mail->Host = 'smtp.gmail.com';
+			$mail->SMTPAuth = true;
+			$mail->Username = 'ricardodocentepolitecnica@gmail'; //Cambiar por tu cuenta de Gmail
+			$mail->Password = '75104962Qw.,-'; //Cambiar por tu contraseña de Gmail
+			$mail->SMTPSecure = 'tls';
+			$mail->Port = 587;
+			$asunto = "Este mensaje es de prueba"; 
+
+			//Configuración del correo electrónico
+			$mail->setFrom('ricardodocentepolitecnica@gmail.com', 'Ricardo torres'); //Cambiar por tu cuenta de Gmail y tu nombre
+			$mail->addAddress('ratmanri@ejemplo.com', 'otro correo mio'); //Cambiar por la dirección de correo electrónico del destinatario y su nombre
+			$mail->Subject = $asunto;
+			$cuerpo = '
+				<html> 
+				<head> 
+				<title>Prueba de correo</title> 
+				</head> 
+				<body> 
+				<h1>Hola amigos!</h1> 
+				<p> 
+				<b>Bienvenidos a mi correo electrónico de prueba</b>. Estoy encantado de tener tantos lectores. Este cuerpo del mensaje es del artículo de envío de mails por PHP. Habría que cambiarlo para poner tu propio cuerpo. Por cierto, cambia también las cabeceras del mensaje. 
+				</p> 
+				</body> 
+				</html> 
+				'; 
+			$mail->Body = $cuerpo;
+		
+			//Envío del correo electrónico
+			$mail->send();
+			echo 'El correo electrónico ha sido enviado';
+		} catch (Exception $e) {
+			echo 'El correo electrónico no pudo ser enviado. Error: ', $mail->ErrorInfo;
+		}
+	}
+	
+	?>
 	
 </body>
 </html>
