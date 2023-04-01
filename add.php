@@ -13,17 +13,17 @@
 			$mail->SMTPDebug = 0; // 0 para desactivar la depuración SMTP
 			$mail->SMTPAuth = true;
 			$mail->SMTPSecure = 'ssl'; // TLS o SSL según corresponda
-			$mail->Host = 'smtp.gmail.com'; // Servidor SMTP de Gmail
+			$mail->Host = 'mail.apesigam.com'; // Servidor SMTP de Gmail
 			$mail->Port = 465; // Puerto SMTP de Gmail
-			$mail->Username = 'ricardoarturotorres@gmail'; //Cambiar por tu cuenta de Gmail
+			$mail->Username = 'pruebas@apesigam.com'; //Cambiar por tu cuenta de Gmail
 			$mail->Password = '75104962Qw.,-'; //Cambiar por tu contraseña de Gmail
 			
 			// Configuración del correo electrónico
 			$asunto = "Este mensaje es de prueba"; 
 
 			//Configuración del correo electrónico
-			$mail->setFrom('ricardoarturotorres@gmail.com', 'Ricardo torres'); //Cambiar por tu cuenta de Gmail y tu nombre
-			$mail->addAddress('ratmanri@ejemplo.com', 'otro correo mio'); //Cambiar por la dirección de correo electrónico del destinatario y su nombre
+			$mail->setFrom('pruebas@apesigam.com', 'Ricardo torres'); //Cambiar por tu cuenta de Gmail y tu nombre
+			$mail->addAddress('ricardoarturotorres@gmail.com', 'otro correo mio'); //Cambiar por la dirección de correo electrónico del destinatario y su nombre
 			$mail->Subject = $asunto;
 			$cuerpo = '
 				<html> 
@@ -42,7 +42,7 @@
 			
 			// Envío del correo electrónico
 			$mail->send();
-			var_dump($mail);
+			//var_dump($mail);
 			echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! se realizo el envio de los correos.</div>';
 			return true;
 		} catch (Exception $e) {
