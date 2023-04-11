@@ -34,7 +34,7 @@ function enviarCorreo($destinatario, $asunto, $cuerpo) {
 include("conexion.php");
 
 // Consulta SQL para extraer los datos de la tabla
-$sql = "SELECT MONTH(Fecha_Creacion) AS mes, estado, CAST(SUM(estado) / CASE estado WHEN 1 THEN 1 WHEN 2 THEN 2 WHEN 3 THEN 3 END AS INT) AS cantidad_total FROM empleados WHERE estado IN (1, 2, 3) AND Fecha_Creacion BETWEEN '2023-03-01' AND '2023-04-30' GROUP BY mes, estado";
+$sql = "SELECT MONTH(Fecha_Creacion) AS mes, estado, CAST(SUM(estado) / CASE estado WHEN 1 THEN 1 WHEN 2 THEN 2 WHEN 3 THEN 3 END AS INT) AS cantidad_total FROM pqrs WHERE estado IN (1, 2, 3) AND Fecha_Creacion BETWEEN '2023-03-01' AND '2023-04-30' GROUP BY mes, estado";
 $resultado = mysqli_query($con, $sql);
 
 if (mysqli_num_rows($resultado) > 0) {
@@ -134,8 +134,8 @@ if (mysqli_num_rows($resultado) > 0) {
 </div>
     <br><hr><br>
     <center>
-    <div id="grafico1" style="border: 5px solid darkblue; height: 300px; width: 600px; align:center " >
-        <canvas id="grafico" ></canvas>
+    <div id="grafico1" style="border: 5px solid darklue; height: 300px; width: 600px; align:center " >
+        grafico <canvas id="grafico" style="border: 5px solid darklue; height: 300px; width: 600px; align:center " ></canvas>
     </div></center>
 
 <br><hr><br>
@@ -177,9 +177,11 @@ mysqli_close($con);
 <div class="container-fluid h-100"> 
     <div class="row w-100 align-items-center">
         <div class="col text-center">
-            <button id="exportButton" class="btn btn-info btn-sm" onclick="exportTableToPDF()"> Exportar a PDF</button>
+           <!--
+             <button id="exportButton" class="btn btn-info btn-sm" onclick="exportTableToPDF()"> Exportar a PDF</button>
             <button id="exportButton1" class="btn btn-info btn-sm" onclick="exportGraficoToPDF()"> Exportar grafico a PDF</button>
 
+           -->
         </div>	
     </div>
 </div>

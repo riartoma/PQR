@@ -48,12 +48,12 @@ function limitar_cadena($cadena, $limite, $sufijo){
 echo "<br><br><br>";
 
 // Consulta SQL para extraer los datos de la tabla
-$sql12 = "SELECT nombres, estado, Fecha_Creacion FROM empleados ORDER BY Fecha_Creacion";
+$sql12 = "SELECT nombres, estado, Fecha_Creacion FROM pqrs ORDER BY Fecha_Creacion";
 /*
 SELECT month(Fecha_Creacion), SUM(estado) , estado from empleados  where estado =1 GROUP BY estado, Fecha_Creacion LIMIT 0, 2500;
 SELECT month(Fecha_Creacion), SUM(estado)/2 , estado from empleados  where estado =2 GROUP BY estado, Fecha_Creacion LIMIT 0, 2500;
 SELECT month(Fecha_Creacion), SUM(estado)/3 , estado from empleados  where estado =3 GROUP BY estado, Fecha_Creacion LIMIT 0, 2500;*/
-$sql = "SELECT MONTH(Fecha_Creacion) AS mes, estado, CAST(SUM(estado) / CASE estado WHEN 1 THEN 1 WHEN 2 THEN 2 WHEN 3 THEN 3 END AS INT) AS cantidad_total FROM empleados WHERE estado IN (1, 2, 3) AND Fecha_Creacion BETWEEN '2023-03-01' AND '2023-03-30' GROUP BY mes, estado";
+$sql = "SELECT MONTH(Fecha_Creacion) AS mes, estado, CAST(SUM(estado) / CASE estado WHEN 1 THEN 1 WHEN 2 THEN 2 WHEN 3 THEN 3 END AS INT) AS cantidad_total FROM pqrs WHERE estado IN (1, 2, 3) AND Fecha_Creacion BETWEEN '2023-03-01' AND '2023-03-30' GROUP BY mes, estado";
 $resultado = mysqli_query($con, $sql);
 if (mysqli_num_rows($resultado) > 0) {
     // Procesar los resultados
