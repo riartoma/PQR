@@ -105,11 +105,11 @@ Email	 	 : info@obedalvarado.pw
 				
 			
 
-				$cek = mysqli_query($con, "SELECT * FROM empleados "); //WHERE codigo='$codigo'
+				$cek = mysqli_query($con, "SELECT * FROM pqrs "); //WHERE codigo='$codigo'
 				//se comenta este if debido a que el codigo de cada una de las peticiones es unico y autoincremental
 				//if(mysqli_num_rows($cek) == 0){
-				$ins="INSERT INTO empleados( nombres, direccion, estado) VALUES('".$nombres."',  '".$direccion."', '".$estado."')";
-					$insert = mysqli_query($con, "INSERT INTO empleados( nombres, direccion, estado)
+				$ins="INSERT INTO pqrs( nombres, direccion, estado) VALUES('".$nombres."',  '".$direccion."', '".$estado."')";
+					$insert = mysqli_query($con, "INSERT INTO pqrs( nombres, direccion, estado)
 					    VALUES('$nombres',  '$direccion', '$estado')") or die($ins);
 
 						/* $insert = mysqli_query($con, "INSERT INTO empleados( nombres, lugar_nacimiento, fecha_nacimiento, direccion, telefono, puesto, estado)

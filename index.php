@@ -34,11 +34,11 @@ include("conexion.php");
 			if(isset($_GET['aksi']) == 'delete'){
 				// escaping, additionally removing everything that could be (html/javascript-) code
 				$nik = mysqli_real_escape_string($con,(strip_tags($_GET["nik"],ENT_QUOTES)));
-				$cek = mysqli_query($con, "SELECT * FROM empleados WHERE codigo='$nik'");
+				$cek = mysqli_query($con, "SELECT * FROM pqrs WHERE codigo='$nik'");
 				if(mysqli_num_rows($cek) == 0){
 					echo '<div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> No se encontraron datos.</div>';
 				}else{
-					$delete = mysqli_query($con, "DELETE FROM empleados WHERE codigo='$nik'");
+					$delete = mysqli_query($con, "DELETE FROM pqrs WHERE codigo='$nik'");
 					if($delete){
 						echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Datos eliminado correctamente.</div>';
 					}else{
@@ -101,9 +101,9 @@ include("conexion.php");
 
 
 				if($filter){
-					$sql = mysqli_query($con, "SELECT * FROM empleados WHERE estado='$filter' ORDER BY codigo ASC");
+					$sql = mysqli_query($con, "SELECT * FROM pqrs WHERE estado='$filter' ORDER BY codigo ASC");
 				}else{
-					$sql = mysqli_query($con, "SELECT * FROM empleados ORDER BY codigo ASC");
+					$sql = mysqli_query($con, "SELECT * FROM pqrs ORDER BY codigo ASC");
 				}
 				if(mysqli_num_rows($sql) == 0){
 					echo '<tr><td colspan="8">No hay datos.</td></tr>';

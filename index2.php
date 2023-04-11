@@ -34,11 +34,11 @@ include("conexion.php");
 			if(isset($_GET['aksi']) == 'delete'){
 				// escaping, additionally removing everything that could be (html/javascript-) code
 				$nik = mysqli_real_escape_string($con,(strip_tags($_GET["nik"],ENT_QUOTES)));
-				$cek = mysqli_query($con, "SELECT * FROM empleados WHERE codigo='$nik'");
+				$cek = mysqli_query($con, "SELECT * FROM pqrs WHERE codigo='$nik'");
 				if(mysqli_num_rows($cek) == 0){
 					echo '<div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> No se encontraron datos.</div>';
 				}else{
-					$delete = mysqli_query($con, "DELETE FROM empleados WHERE codigo='$nik'");
+					$delete = mysqli_query($con, "DELETE FROM pqrs WHERE codigo='$nik'");
 					if($delete){
 						echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Datos eliminado correctamente.</div>';
 					}else{
@@ -133,7 +133,7 @@ include("conexion.php");
 
 					if (isset($_GET["date1"]) && isset($_GET["date2"]) ){
 				//if($filter==1 ){
-					$sql = mysqli_query($con, "SELECT * FROM empleados ORDER BY Fecha_Creacion DESC") or die(mysqli_error());//='$filter' ORDER BY codigo ASC");
+					$sql = mysqli_query($con, "SELECT * FROM pqrs ORDER BY Fecha_Creacion DESC") or die(mysqli_error());//='$filter' ORDER BY codigo ASC");
 //echo "SELECT * FROM empleados WHERE Fecha_Creacion BETWEEN '".$_GET["date1"] ."' AND  '".$_GET["date2"]."'";
 					//$sql = mysqli_query($con, "SELECT * FROM empleados WHERE estado='$filter' ORDER BY codigo ASC");
 				}
@@ -142,14 +142,14 @@ include("conexion.php");
 	//echo "SELECT * FROM empleados WHERE Fecha_Creacion BETWEEN '".$_GET["date1"] ."' AND  '".$_GET["date2"]."'";
 						//$sql = mysqli_query($con, "SELECT * FROM empleados WHERE estado='$filter' ORDER BY codigo ASC");
 						if($_GET['filter']!=0){
-							$sql = mysqli_query($con, "SELECT * FROM empleados WHERE Fecha_Creacion >= '".$_GET["date1"] ." 00:00:00' and  Fecha_Creacion <= '".$_GET["date2"] ." 23:59:59' and estado = ".(int)$_GET['filter']." ORDER BY Fecha_Creacion asc") or die(mysqli_error());//='$filter' ORDER BY codigo ASC");
+							$sql = mysqli_query($con, "SELECT * FROM pqrs WHERE Fecha_Creacion >= '".$_GET["date1"] ." 00:00:00' and  Fecha_Creacion <= '".$_GET["date2"] ." 23:59:59' and estado = ".(int)$_GET['filter']." ORDER BY Fecha_Creacion asc") or die(mysqli_error());//='$filter' ORDER BY codigo ASC");
 						}
 						else{
-							$sql = mysqli_query($con, "SELECT * FROM empleados WHERE Fecha_Creacion >= '".$_GET["date1"] ." 00:00:00' and  Fecha_Creacion <= '".$_GET["date2"] ." 23:59:59' ORDER BY Fecha_Creacion asc") or die(mysqli_error());//='$filter' ORDER BY codigo ASC");
+							$sql = mysqli_query($con, "SELECT * FROM pqrs WHERE Fecha_Creacion >= '".$_GET["date1"] ." 00:00:00' and  Fecha_Creacion <= '".$_GET["date2"] ." 23:59:59' ORDER BY Fecha_Creacion asc") or die(mysqli_error());//='$filter' ORDER BY codigo ASC");
 
 						}
 					}else{
-					$sql = mysqli_query($con, "SELECT * FROM empleados ORDER BY codigo ASC");
+					$sql = mysqli_query($con, "SELECT * FROM pqrs ORDER BY codigo ASC");
 				}
 				if(mysqli_num_rows($sql) == 0){
 					echo '<tr><td colspan="8">No hay datos.</td></tr>';

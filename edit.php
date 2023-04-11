@@ -43,7 +43,7 @@ Email	 	 : info@obedalvarado.pw
 			<?php
 			// escaping, additionally removing everything that could be (html/javascript-) code
 			$nik = mysqli_real_escape_string($con,(strip_tags($_GET["nik"],ENT_QUOTES)));
-			$sql = mysqli_query($con, "SELECT * FROM empleados WHERE codigo='$nik'");
+			$sql = mysqli_query($con, "SELECT * FROM pqrs WHERE codigo='$nik'");
 			if(mysqli_num_rows($sql) == 0){
 				header("Location: index.php");
 			}else{
@@ -60,7 +60,7 @@ Email	 	 : info@obedalvarado.pw
 				$puesto		 = mysqli_real_escape_string($con,(strip_tags($_POST["puesto"],ENT_QUOTES)));//Escanpando caracteres 
 				 */
 				$estado			 = mysqli_real_escape_string($con,(strip_tags($_POST["estado"],ENT_QUOTES)));//Escanpando caracteres  
-				$update = mysqli_query($con, "UPDATE empleados SET nombres='$nombres', direccion='$direccion', estado='$estado' WHERE codigo='$nik'") or die(mysqli_error());
+				$update = mysqli_query($con, "UPDATE pqrs SET nombres='$nombres', direccion='$direccion', estado='$estado' WHERE codigo='$nik'") or die(mysqli_error());
 
 				//$update = mysqli_query($con, "UPDATE empleados SET nombres='$nombres', lugar_nacimiento='$lugar_nacimiento', fecha_nacimiento='$fecha_nacimiento', direccion='$direccion', telefono='$telefono', puesto='$puesto', estado='$estado' WHERE codigo='$nik'") or die(mysqli_error());
 				if($update){
