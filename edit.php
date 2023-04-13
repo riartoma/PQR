@@ -4,13 +4,7 @@ include("conexion.php");
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<!--
-Project      : Datos de empleados con PHP, MySQLi y Bootstrap CRUD  (Create, read, Update, Delete) 
-Author		 : Obed Alvarado
-Website		 : http://www.obedalvarado.pw
-Blog         : http://obedalvarado.pw/blog/
-Email	 	 : info@obedalvarado.pw
--->
+
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,10 +20,7 @@ Email	 	 : info@obedalvarado.pw
 		}
 	</style>
 	
-	<!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
+
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top">
@@ -65,6 +56,8 @@ Email	 	 : info@obedalvarado.pw
 				//$update = mysqli_query($con, "UPDATE empleados SET nombres='$nombres', lugar_nacimiento='$lugar_nacimiento', fecha_nacimiento='$fecha_nacimiento', direccion='$direccion', telefono='$telefono', puesto='$puesto', estado='$estado' WHERE codigo='$nik'") or die(mysqli_error());
 				if($update){
 					header("Location: index.php?");
+					echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Los datos han sido guardados con éxito.</div>';
+
 				}else{
 					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error, no se pudo guardar los datos.</div>';
 				}
