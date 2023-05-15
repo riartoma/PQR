@@ -80,6 +80,14 @@ include("conexion.php");
                         <option value="3" <?php if($filter != NULL){ echo 'selected'; } ?>>Reclamo</option>
 					</select>
 					<input class="btn btn-primary" type="submit" value="Enviar">
+					<?php 
+					$fechaini=$_GET['date1'];
+					$fechafin=$_GET['date2'];
+					$estadito=$_GET['filter'];
+
+
+					?>
+					<a href="graficos2.php?date1=<?php echo $fechaini;?>&date2=<?php echo $fechaini;?>&filter=<?php echo $estadito;?>">Graficar con fechas o todos</a>
 
       <!-- <button class="btn btn-primary" name="filter"><span class="glyphicon glyphicon-search"></span></button> <a href="index2.php" type="button" class="btn btn-success"><span class = "glyphicon glyphicon-refresh"><span></a> -->
     </form>

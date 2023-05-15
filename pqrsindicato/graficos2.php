@@ -81,15 +81,19 @@ function enviarCorreo($destinatario, $asunto, $cuerpo) {
 
 
 include("conexion.php");
+$fechaini=$_GET['date1'];
 
+$fechafin=$_GET['date2'];
+$estadito=$_GET['filter'];
 // Consulta SQL para extraer los datos de la tabla
 $sql = "SELECT MONTH(Fecha_Creacion) AS mes, YEAR(Fecha_Creacion) as ano, estado,
 SUM(estado) / CASE estado WHEN 1 THEN 1 WHEN 2 THEN 2 WHEN 3 THEN 3 END AS cantidad_total
 FROM pqrs
 WHERE estado IN (1, 2, 3)
-AND Fecha_Creacion BETWEEN '2023-01-01' AND '2023-12-31'
+AND Fecha_Creacion BETWEEN '$fechaini' AND '$fechafin'
 GROUP BY mes, estado
 LIMIT 0, 25;";
+//var_dump($sql);
 $resultado = mysqli_query($con, $sql);
 //var_dump(mysqli_num_rows($resultado));
 

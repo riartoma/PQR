@@ -1,4 +1,6 @@
 <?php
+
+
   session_start();
   if (!isset($_SESSION['tiempo'])) {
         $_SESSION['tiempo']=time();
@@ -10,13 +12,18 @@
         die();  
     }
     $_SESSION['tiempo']=time();
- 
+ var_dump($_POST['email']);
+ var_dump($_POST['password']);
+
   // Obtengo los datos cargados en el formulario de login.
   $email = $_POST['email'];
   $password = md5($_POST['password']);
+
    include("conexion.php");
     $sql="SELECT * FROM logeo where email='$email' and pass='$password'";
    $resultado = mysqli_query($con, $sql);
+   var_dump($sql);
+
 
     while($row = mysqli_fetch_assoc($resultado)){
 
